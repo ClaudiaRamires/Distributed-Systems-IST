@@ -1,0 +1,52 @@
+//
+// Protocol buffers definition
+//
+syntax = "proto3";
+package pt.tecnico.reg.grpc;
+import "google/protobuf/timestamp.proto";
+
+
+enum ResponseStatus {
+    SUCCESS = 0;
+    NO_PING = 1;
+    INVALID_READ = 2;
+    INVALID_WRITES = 3;
+}
+
+
+message ReadRequest {
+  string type = 1;
+	string name = 2;
+}
+
+
+message ReadResponse {
+	string res = 1;
+}
+
+
+message WriteRequest {
+  string type = 1;
+	string name = 2;
+  string value = 3;
+}
+
+message WriteResponse {
+	string res = 1;
+}
+
+
+message PingRequest {
+  string input = 1;
+}
+
+message PingResponse {
+	string output = 1;
+}
+
+
+service RecordService {
+  rpc ping(PingRequest) returns (PingResponse);
+  rpc read(ReadRequest) returns (ReadResponse);
+  rpc write(WriteRequest) returns (WriteResponse);
+}
