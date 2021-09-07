@@ -1,0 +1,516 @@
+# ist186286-RegCor
+
+Distributed Systems special project
+
+## Author
+
+**ist186286**
+
+# Demonstration Guide
+
+## 1. Introduction to RegCor
+
+The objective of this Distributed Systems project is to develop a coherent register system, called RegCor, 
+through a set of remote gRPC procedures developed on the Java platform.
+
+----
+
+
+## 2. Installation (Step by step guide)
+
+* Make sure you are in the demo folder and follow all commands exactly as provided here. 
+If you are an experience user, you can go to the main README.md to see a more abstract guide.
+
+
+#### Installing - First Step (Installing the System)
+
+
+* Open a terminal. You will execute the following commands to go to the main directory and install the contract and other modules:
+
+```
+cd ..
+mvn clean install -DskipTests
+```
+
+#### Installing - Second Step (Running ZooKeeper)
+
+* Open a terminal. You will execute the following commands to make the ZooKeeper run:
+
+**linux**
+
+```
+cd /path/zookeeper/bin
+./zkServer.sh start
+```
+ or 
+
+**windows**
+
+```
+cd \path\zookeeper\bin
+zkServer.cmd
+```
+
+After this the zookeeper will be left running in this terminal. Open a different terminal, but don't close this one.
+
+#### Installing - Second Step (Running Server)
+
+* To start the server you wil execute the following commands:
+
+```
+cd reg
+mvn clean compile exec:java
+```
+
+After this the server will be left running in this terminal. Open a different terminal, but don't close this one.
+
+* To start multiple servers in a specific ports open the terminal (all in the current directory): 
+
+```
+mvn clean compile exec:java -D instance=N
+```
+
+assuming N is the number you want the server to be hosted
+
+#### Running Tests
+
+* To run the integration tests (assuming that you are in the rec-tester directory and the server is already running):
+
+```
+mvn verify
+```
+
+
+#### Installing - Third Step (Running Client)
+
+* To start the client cli (assuming that you are in the cli directory and the server is already running):
+
+```
+mvn clean compile exec:java
+```
+
+After this the client will be left running in this terminal at the localhost:localhost and localport:2181.
+
+
+## 3. Use Cases
+
+*Assuming all the commands in the topic 2, are still running (reg and the cli)
+
+*In the terminal of the client (Cli) execute:
+
+*In case of usage doubts execute the command (it will provide an explanation of all the commands avaiabl):
+
+```
+> help
+```
+
+*In order to close the client connection execute the command:
+
+```
+> exit
+OK
+```
+
+
+### 3.1 Creating a registry (Option 1) - Reading from registry "id" (if it does not exist, it is created at this time):
+
+```
+> read int id
+OK 0
+```
+
+### 3.1 Creating a registry (Option 2) - Creating a new registry directly:
+
+```
+> write int id 10
+OK 
+```
+
+*If you choose Option 2, you can confirm the value is now registered with the number 10, by executing Option 1, and then proceeding.
+
+*After choosing Option 1 or Option 2, you can continue executing the guide. At the end you can come back and do the same commands with 
+the option you didn't use, for a different starting point
+
+### 3.1.1 Insert in the registry an updated value:
+
+```
+> write int id 150
+OK 
+```
+
+Returns OK because the registry "id" was created in the previous instruction, and has now a new value.
+
+
+### 3.1.2 To confirm the id was updated:
+
+```
+> read int id 
+OK 150
+```
+
+### 3.1.3 Try to write a new type into the existing registry id:
+
+``` 
+> write str id texto
+ERRO Not possible convert the given type. 
+```
+
+Generates a fault and therefore stop the proceeding, because the registry "id" was created in the previous instruction with the type "int".
+
+To re-connect with the server execute:
+
+```
+mvn compile exec:java
+```
+
+
+### 3.1.4 Try to write in type int a text value:
+
+``` 
+> write int id texto
+ERRO If the type is int please insert only numbers! 
+```
+
+Generates a fault and therefore stop the proceeding, the registry "id" is a int, and cant write a string value in that registry.
+
+To re-connect with the server execute:
+
+```
+mvn compile exec:java
+```
+
+
+### 3.1.5 To confirm that the value of the "id" was not alterated execute command: *3.1.2* again
+
+
+
+*Note: The command 3.1 can be executed with different types of data: int, str, usr, coords, age having the same execution.
+For the detailed use case of:
+                            - go to use case 3.2 for str;
+                            - go to use case 3.3 for usr;
+                            - go to use case 3.4 for crd;
+                            - go to use case 3.5 for age;
+
+For the next different command go to 3.6 for ping.
+
+
+
+### 3.2 Creating a registry (Option 1) - Reading from registry "address" (if it does not exist, it is created at this time):
+
+```
+> read str address
+OK
+```
+
+### 3.2 Creating a registry (Option 2) - Creating a new registry directly:
+
+```
+> write str address Av Prof. Dr. Anibal Cavaco Silva, 2744-016 Porto Salvo
+OK 
+```
+
+*If you choose Option 2, you can confirm the address is now register with: "Av Prof. Dr. Aníbal Cavaco Silva, 2744-016 Porto Salvo", by executing Option 1, and then proceeding.
+
+*After choosing Option 1 or Option 2, you can continue executing the guide. At the end you can come back and do the same commands with 
+the option you didnt use, for a different starting point
+
+
+### 3.2.1 Insert in the registry an updated address:
+
+```
+> write str address Av. Sao Francisco Xavier, Lisboa
+OK 
+```
+
+Returns OK because the registry "address" was created in the previous instruction, and has now a new value.
+
+
+### 3.2.2 To confirm the address was updated:
+
+```
+> read str address 
+OK Av. Sao Francisco Xavier, Lisboa
+```
+
+### 3.2.3 Try to write a new type into the existing registry address:
+
+``` 
+> write crd address 3434.56,-354345.34
+ERRO Not possible convert the given type. 
+```
+
+Generates a fault and therefore stop the proceeding, because the registry "address" was created in the previous instruction with the type "str".
+
+
+To re-connect with the server execute:
+
+```
+mvn compile exec:java
+```
+
+### 3.2.4 To confirm that the value in the registy was not alterated execute command: *3.2.2* 
+
+
+
+### 3.3 Creating a registry (Option 1) - Reading from registry "username" (if it does not exist, it is created at this time):
+
+```
+> read usr udiana
+OK
+```
+
+### 3.3 Creating a registry (Option 2) - Creating a new registry directly:
+
+```
+> write usr udiana diana,Diana Damião
+OK 
+```
+
+*If you choose Option 2, you can confirm the username is now register with "diana,Diana Damião", by executing Option 1, and then proceeding.
+
+*After choosing Option 1 or Option 2, you can continue executing the guide. At the end you can come back and do the same commands with 
+the option you didnt use, for a different starting point
+
+### 3.3.1 Insert in the registry an updated username:
+
+```
+> write usr udiana ferreira,Manuel Ferreira
+OK 
+```
+
+Returns OK because the registry "udiana" was created in the previous instruction, and has now a new value.
+
+
+### 3.3.2 To confirm the username was updated:
+
+```
+> read usr udiana 
+OK Manuel,Manuel Ferreira
+```
+
+### 3.3.3 Try to write a new type into the existing registry value:
+
+``` 
+> write str udiana texto
+ERRO Not possible convert the given type. 
+```
+
+Generates a fault and therefore stop the proceeding, because the registry "udiana" was created in the previous instruction with the type "usr".
+
+
+To re-connect with the server execute:
+
+```
+mvn compile exec:java
+```
+
+
+### 3.3.4 To confirm that the value in the registy was not alterated execute command: *3.3.2* 
+
+
+
+### 3.4 Creating a registry (Option 1) - Reading from registry "coordinates" (if it does not exist, it is created at this time):
+
+```
+> read crd coordinates
+OK 0
+```
+
+### 3.4 Creating a registry (Option 2) - Creating a new registry directly:
+
+```
+> write crd coordinates 38.7372,-9.3023
+OK 
+```
+
+*If you choose Option 2, you can confirm the value is now register with: "38.7372,-9.3023", by executing Option 1, and then proceeding.
+
+*After choosing Option 1 or Option 2, you can continue executing the guide. At the end you can come back and do the same commands with 
+the option you didnt use, for a different starting point
+
+### 3.4.1 Insert in the registry an updated value:
+
+```
+> write crd coordinates 1111111,-9.3023
+OK 
+```
+
+Returns OK because the registry "coordinates" was created in the previous instruction, and has now a new value.
+
+
+### 3.4.2 To confirm the coordinates were updated:
+
+```
+> read crd coordinates 
+OK 1111111,-9.3023
+```
+
+### 3.4.3 Try to write a new type into the existing registry value:
+
+``` 
+> write int coordinates 1232
+ERRO Not possible convert the given type.
+```
+
+Generates a fault and therefore stop the proceeding, because the registry "coordinates" was created in the previous instruction with the type "crd".
+
+
+To re-connect with the server execute:
+
+```
+mvn compile exec:java
+```
+
+
+### 3.4.4 To confirm that the value in the registy was not alterated execute command: *3.4.2* again
+
+### 3.4.5 Try to write in type cord a text value:
+
+``` 
+> write crd coordinates texto
+ERRO Not possible convert the given type.
+```
+
+Generates a fault and therefore stop the proceeding, because the registry "coordinates" is compost by integers, so you can't write a string value in that registry.
+
+
+To re-connect with the server execute:
+
+```
+mvn compile exec:java
+```
+
+### 3.4.5 To confirm that the value in the registy was not alterated execute command: *3.4.2* again
+
+
+
+
+### 3.5 Creating a registry (Option 1) - Reading from registry "age" (if it does not exist, it is created at this time):
+
+```
+> read age name
+OK 0
+```
+
+### 3.1 Creating a registry (Option 2) - Creating a new registry directly:
+
+```
+> write age name 10
+OK 
+```
+
+*If you choose Option 2, you can confirm the value is now register with: "name 10" , by executing Option 1, and then proceeding.
+
+*After choosing Option 1 or Option 2, you can continue executing the guide. At the end you can come back and do the same commands with 
+the option you didnt use, for a different starting point
+
+### 3.1.1 Insert in the registry an updated value:
+
+```
+> write age name 150
+OK 
+```
+
+Returns OK because the registry "name" was created in the previous instruction, and has now a new value.
+
+
+### 3.1.2 To confirm the value was updated:
+
+```
+> read age name 
+OK 150
+```
+
+### 3.1.3 Try to write a new type into the existing registry name:
+
+``` 
+> write str name texto
+ERRO Not possible convert the given type.
+```
+
+Generates a fault and therefore stop the proceeding, because the registry "name" was created in the previous instruction with the type "age".
+
+
+To re-connect with the server execute:
+
+```
+mvn compile exec:java
+```
+
+### 3.1.4 Try to write in type int a text value:
+
+``` 
+> write age name texto
+ERRO If the type is int please insert only numbers! 
+```
+
+Generates a fault and therefore stop the proceeding, because the registry "texto" is a int, and you cant write a string value in that registry.
+
+
+To re-connect with the server execute:
+
+```
+mvn compile exec:java
+```
+
+
+### 3.5.5 To confirm that the value in the registy was not alterated execute command: *3.5.2* again
+
+
+
+
+
+### 3.6 Ping - returns status of all the servers
+
+```
+>ping
+
+* To start multiple servers in a specific ports open a new terminal (all in directory reg): 
+
+```
+mvn clean compile exec:java -D instance=N
+```
+
+assuming N is the number you want the server to be hosted
+
+```
+> cd reg
+> mvn clean compile exec:java -D instance=3
+
+```
+
+*A new server was started at localport: 8083
+
+
+```
+>cd cli
+>ping
+
+output: "/grpc/regcor/reg/2 OK"
+
+output: "/grpc/regcor/reg/3 OK"
+
+OK
+```
+
+*if you close the terminal that you open on localport:8083, and re-run the last instruction, the output will differe because the server:8083, is
+no longer running
+
+```
+>ping
+
+output: "/grpc/regcor/reg/2 OK"
+
+OK
+
+```
+
+### 3.7 Closing the client: 
+
+``` 
+> exit
+OK
+```
+
+
+----

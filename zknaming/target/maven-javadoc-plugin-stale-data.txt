@@ -1,0 +1,26 @@
+cmd.exe
+/X
+/C
+""C:\Program Files\AdoptOpenJDK\jdk-11.0.11.9-hotspot\bin\javadoc.exe" @options @packages"
+C:\sd\EE\nuno\zknaming\target\apidocs\allclasses-index.html = 1626874725929
+C:\sd\EE\nuno\zknaming\target\apidocs\allclasses.html = 1626874726000
+C:\sd\EE\nuno\zknaming\target\apidocs\allpackages-index.html = 1626874725948
+C:\sd\EE\nuno\zknaming\target\apidocs\constant-values.html = 1626874725631
+C:\sd\EE\nuno\zknaming\target\apidocs\deprecated-list.html = 1626874725975
+C:\sd\EE\nuno\zknaming\target\apidocs\element-list = 1626874725532
+C:\sd\EE\nuno\zknaming\target\apidocs\help-doc.html = 1626874726083
+C:\sd\EE\nuno\zknaming\target\apidocs\index-all.html = 1626874725903
+C:\sd\EE\nuno\zknaming\target\apidocs\index.html = 1626874726062
+C:\sd\EE\nuno\zknaming\target\apidocs\member-search-index.js = 1626874725889
+C:\sd\EE\nuno\zknaming\target\apidocs\member-search-index.zip = 1626874725896
+C:\sd\EE\nuno\zknaming\target\apidocs\options = 1626874722191
+C:\sd\EE\nuno\zknaming\target\apidocs\overview-tree.html = 1626874725820
+C:\sd\EE\nuno\zknaming\target\apidocs\package-search-index.js = 1626874725869
+C:\sd\EE\nuno\zknaming\target\apidocs\package-search-index.zip = 1626874725877
+C:\sd\EE\nuno\zknaming\target\apidocs\packages = 1626874722194
+C:\sd\EE\nuno\zknaming\target\apidocs\script.js = 1626874726103
+C:\sd\EE\nuno\zknaming\target\apidocs\search.js = 1626874726136
+C:\sd\EE\nuno\zknaming\target\apidocs\serialized-form.html = 1626874725679
+C:\sd\EE\nuno\zknaming\target\apidocs\stylesheet.css = 1626874726091
+C:\sd\EE\nuno\zknaming\target\apidocs\type-search-index.js = 1626874725881
+C:\sd\EE\nuno\zknaming\target\apidocs\type-search-index.zip = 1626874725884
